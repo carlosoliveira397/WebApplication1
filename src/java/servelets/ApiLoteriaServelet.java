@@ -11,14 +11,16 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.Date;
 import org.json.JSONObject;
 
 /**
  *
  * @author Aluno
  */
-@WebServlet(name = "ApiCarlosServlet", urlPatterns = {"/carlos.json"})
-public class ApiCarlosServlet extends HttpServlet {
+@WebServlet(name = "ApiLoteriaServelet", urlPatterns = {"/loteria.json"})
+public class ApiLoteriaServelet extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -31,14 +33,36 @@ public class ApiCarlosServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
-        String[] nome = {"RA: 1290482222035", "Nome: Carlos Henrique de Oliveira", "Banco de Dados", "Engenharia de Software III", "Programação Orientada a Objetos", "Linguagem de Programação IV - INTERNET", "Sistemas Operacionais II", "Inglês IV (Sem professor)", "Metodologia da Pesquisa Científico-Tecnológica", "Estágio Supervisionado em Análise e Desenvolvimento de Sistemas"};
+        int lot = 6;
+        int num[];
+        num = new int[lot];
+        // laco de repeticao para controle de numeros randomicos nao serem repetidos e diferentes de zero
+        for(int h = 0; h < 1; h++){
+            // laco de repeticao para sortear os numeros
+            for(int i = 0; i < num.length; i++){
+                num[i] = (int)(60*Math.random());
+            }
+            // laco de repeticao para controle do numero atual 
+            for(int j = 0; j < lot -1; j++){
+                // laco de repeticao para controle do proximo numero
+                for(int k = j+1; k < lot; k++){
+                    // Verifica se o numero sorteado se repete no array, ou se é zero
+                    if((num[j] == num[k]) && (num[j] == 0)){
+                        k = lot;
+                        j = lot;
+                        h = 0;
+                    }
+                }
+            }
+        }
+        
         try (PrintWriter out = response.getWriter()) {
             JSONObject obj = new JSONObject();
-            for(int i = 0; i < nome.length; i++){
-                obj.append("Disciplina", nome[i]);
+            obj.append("Data Time", new Date().toString());
+            for(int i = 0; i < num.length; i++){
+                obj.append("Loteria", num[i]);
             }
-            
-            out.print(obj);
+            out.print(obj.toString());
         }
     }
 
