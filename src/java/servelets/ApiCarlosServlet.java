@@ -31,13 +31,14 @@ public class ApiCarlosServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
-        String[] nome = {"RA: 1290482222035", "Nome: Carlos Henrique de Oliveira", "Banco de Dados", "Engenharia de Software III", "Programação Orientada a Objetos", "Linguagem de Programação IV - INTERNET", "Sistemas Operacionais II", "Inglês IV (Sem professor)", "Metodologia da Pesquisa Científico-Tecnológica", "Estágio Supervisionado em Análise e Desenvolvimento de Sistemas"};
+        String[] nome = {"Nome: Carlos Henrique de Oliveira", "Banco de Dados", "Engenharia de Software III", "Programação Orientada a Objetos", "Linguagem de Programação IV - INTERNET", "Sistemas Operacionais II", "Inglês IV (Sem professor)", "Metodologia da Pesquisa Científico-Tecnológica", "Estágio Supervisionado em Análise e Desenvolvimento de Sistemas"};
         try (PrintWriter out = response.getWriter()) {
             JSONObject obj = new JSONObject();
+            obj.append("1. RA: ", "1290482222035");
+            obj.append("2. Nome: ", "Carlos Henrique de Oliveira");
             for(int i = 0; i < nome.length; i++){
-                obj.append("Disciplina", nome[i]);
+                obj.append("3. Disciplina", nome[i]);
             }
-            
             out.print(obj);
         }
     }
